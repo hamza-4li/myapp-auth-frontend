@@ -24,7 +24,7 @@ export default function Login() {
             return; // Stop the API call if validation fails
         }
         try {
-            const response = await axios.post(`http://localhost:5000/login`,
+            const response = await axios.post(`myapp-auth-backend-production.up.railway.app/login`,
                 {
                     email: email.trim(),
                     password: password

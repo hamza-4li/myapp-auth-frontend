@@ -25,7 +25,7 @@ export default function Signup() {
         console.log("email: ", email)
         console.log("password: ", password)
         try {
-            const response = await axios.post(`http://localhost:5000/register`,
+            const response = await axios.post(`myapp-auth-backend-production.up.railway.app/register`,
                 {
                     email: email.trim(),
                     password: password
