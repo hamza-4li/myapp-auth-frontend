@@ -1,6 +1,20 @@
+'use client';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 
 export default function Home() {
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('fe_token');
+    if (token) {
+      // If token exists, redirect to dashboard
+      router.push('/dashboard');
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
       <Navbar />
