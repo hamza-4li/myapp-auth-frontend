@@ -9,6 +9,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false); // Loading state
     const router = useRouter();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -22,6 +23,10 @@ export default function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        setLoading(true); // Start loading
+        setError('');     // Reset error
+
         if (!emailRegex.test(email)) {
             alert('Please enter a valid email address.');
             return; // Stop the API call if validation fails
@@ -45,7 +50,14 @@ export default function Login() {
         } catch (error) {
             console.error('Login Error:', error);
             alert(error?.response?.data?.message || "something went wrong")
-            router.push("/signup")
+            router.push("/signup");
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message);
+            } else {
+                setError('Server error. Please try again later.');
+            }
+        } finally {
+            setLoading(false); // Stop loading
         }
     };
 
@@ -79,8 +91,36 @@ export default function Login() {
                             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                         </div>
                     </div>
-                    <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
-                        Login
+                    <button
+                        type="submit"
+                        className={`w-full flex justify-center items-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition ${loading ? 'opacity-70 cursor-not-allowed' : ''
+                            }`}
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <svg
+                                className="animate-spin h-5 w-5 text-white"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                ></circle>
+                                <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                ></path>
+                            </svg>
+                        ) : (
+                            'Login'
+                        )}
                     </button>
                 </form>
             </div>
