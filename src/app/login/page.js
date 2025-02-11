@@ -9,9 +9,17 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    // const [error, setError] = useState(''); 
     const router = useRouter();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    useEffect(() => {
+        const token = localStorage.getItem('fe_token');
+        if (token) {
+            // Redirect to dashboard if already logged in
+            router.push('/dashboard');
+        }
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();

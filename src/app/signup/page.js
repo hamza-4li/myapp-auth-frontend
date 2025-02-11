@@ -12,6 +12,14 @@ export default function Signup() {
     const router = useRouter();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    useEffect(() => {
+        const token = localStorage.getItem('fe_token');
+        if (token) {
+            // Redirect to dashboard if already signed in
+            router.push('/dashboard');
+        }
+    }, []);
+
     const handleSignup = async (e) => {
         e.preventDefault();
         if (!emailRegex.test(email)) {
