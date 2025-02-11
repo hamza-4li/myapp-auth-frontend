@@ -4,12 +4,13 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Navbar from '@/components/Navbar';
 import { Eye, EyeOff } from 'lucide-react';
+import { BeatLoader } from 'react-spinners';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    // const [loading, setLoading] = useState(false); // Loading state
+    const [loading, setLoading] = useState(false); // Loading state
     const router = useRouter();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -24,7 +25,6 @@ export default function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        // setLoading(true); // Start loading
         // setError('');     // Reset error
 
         if (!emailRegex.test(email)) {
@@ -36,6 +36,8 @@ export default function Login() {
             return; // Stop the API call if validation fails
         }
         try {
+            setLoading(true); // Start loading
+
             const response = await axios.post(`https://myapp-auth-backend-production.up.railway.app/login`,
                 {
                     email: email.trim(),
@@ -122,8 +124,10 @@ export default function Login() {
                         ) : (
                             'Login'
                         )} */}
-                    <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
-                        Login
+                    <button type="submit" className=" mt-4 w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+                        {
+                            loading ? <BeatLoader color='#fff' /> : 'login'
+                        }
                     </button>
                 </form>
             </div>

@@ -4,12 +4,14 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Navbar from '@/components/Navbar';
 import { Eye, EyeOff } from 'lucide-react';
+import BeatLoader from 'react-spinners/BeatLoader';
+
 
 export default function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    // const [loading, setLoading] = useState(false); // Loading state
+    const [loading, setLoading] = useState(false); // Loading state
     const router = useRouter();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -24,7 +26,6 @@ export default function Signup() {
     const handleSignup = async (e) => {
         e.preventDefault();
 
-        // setLoading(true); // Start loading
         // setError('');     // Reset error
 
         if (!emailRegex.test(email)) {
@@ -38,6 +39,8 @@ export default function Signup() {
         console.log("email: ", email)
         console.log("password: ", password)
         try {
+            setLoading(true); // Start loading
+
             const response = await axios.post(`https://myapp-auth-backend-production.up.railway.app/register`,
                 {
                     email: email.trim(),
@@ -58,9 +61,9 @@ export default function Signup() {
             //     setError('Server error. Please try again later.');
             // }
         }
-        // finally {
-        //     setLoading(false); // Stop loading
-        // }
+        finally {
+            setLoading(false); // Stop loading
+        }
     };
 
     return (
@@ -123,8 +126,10 @@ export default function Signup() {
                         ) : (
                             'Sign Up'
                         )} */}
-                    <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
-                        sign up
+                    <button type="submit" className=" mt-4 w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+                        {
+                            loading ? <BeatLoader color='#fff' /> : "sign up"
+                        }
                     </button>
                 </form>
             </div>
