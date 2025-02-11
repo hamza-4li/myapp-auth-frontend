@@ -51,6 +51,7 @@ export default function Signup() {
             }
         } catch (error) {
             console.error('Signup Error:', error);
+            alert(error?.response?.data?.message || "User Already exist")
             // if (err.response && err.response.data && err.response.data.message) {
             //     setError(err.response.data.message);
             // } else {
