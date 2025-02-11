@@ -91,7 +91,7 @@ export default function Signup() {
                             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                         </div>
                     </div>
-                    <button
+                    {/* <button
                         type="submit"
                         className={`w-full flex justify-center items-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition ${loading ? 'opacity-70 cursor-not-allowed' : ''
                             }`}
@@ -120,7 +120,9 @@ export default function Signup() {
                             </svg>
                         ) : (
                             'Sign Up'
-                        )}
+                        )} */}
+                    <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+                        sign up
                     </button>
                 </form>
             </div>
