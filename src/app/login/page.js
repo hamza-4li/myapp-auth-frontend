@@ -9,7 +9,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [loading, setLoading] = useState(false); // Loading state
+    // const [loading, setLoading] = useState(false); // Loading state
     const router = useRouter();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -24,8 +24,8 @@ export default function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        setLoading(true); // Start loading
-        setError('');     // Reset error
+        // setLoading(true); // Start loading
+        // setError('');     // Reset error
 
         if (!emailRegex.test(email)) {
             alert('Please enter a valid email address.');
@@ -51,14 +51,15 @@ export default function Login() {
             console.error('Login Error:', error);
             alert(error?.response?.data?.message || "something went wrong")
             router.push("/signup");
-            if (err.response && err.response.data && err.response.data.message) {
-                setError(err.response.data.message);
-            } else {
-                setError('Server error. Please try again later.');
-            }
-        } finally {
-            setLoading(false); // Stop loading
+            // if (err.response && err.response.data && err.response.data.message) {
+            //     setError(err.response.data.message);
+            // } else {
+            //     setError('Server error. Please try again later.');
+            // }
         }
+        //  finally {
+        //     setLoading(false); // Stop loading
+        // }
     };
 
     return (
