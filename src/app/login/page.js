@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Navbar from '@/components/Navbar';
@@ -12,13 +12,13 @@ export default function Login() {
     const router = useRouter();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // useEffect(() => {
-    //     const token = localStorage.getItem('fe_token');
-    //     if (token) {
-    //         // Redirect to dashboard if already logged in
-    //         router.push('/dashboard');
-    //     }
-    // }, []);
+    useEffect(() => {
+        const token = localStorage.getItem('fe_token');
+        if (token) {
+            // Redirect to dashboard if already logged in
+            router.push('/dashboard');
+        }
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
